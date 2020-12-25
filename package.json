@@ -31,6 +31,7 @@
   },
   "homepage": "https://github.com/malvfr/zap#readme",
   "devDependencies": {
+    "@types/faker": "^5.1.5",
     "@typescript-eslint/eslint-plugin": "^4.11.0",
     "@typescript-eslint/parser": "^4.11.0",
     "eslint": "^7.16.0",
@@ -41,5 +42,8 @@
     "rimraf": "^3.0.2",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
+  },
+  "dependencies": {
+    "faker": "^5.1.0"
   }
 }

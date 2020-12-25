@@ -5,11 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "test:cov": "jest --coverage",
+    "test:watch": "jest --watch",
     "start:dev": "nodemon",
+    "start:prod": "node build/index.js",
+    "start:debug": "nodemon --debug --watch",
     "build": "rimraf ./build && tsc",
     "start": "npm run build && node build/index.js",
     "lint": "eslint . --ext .ts --fix",
-    "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write"
+    "format": "prettier --write \"src/**/*.ts\""
   },
   "repository": {
     "type": "git",

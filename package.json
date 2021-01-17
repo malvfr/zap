@@ -36,7 +36,6 @@
   "homepage": "https://github.com/malvfr/zap#readme",
   "devDependencies": {
     "@types/faker": "^5.1.5",
-    "@types/inquirer": "^7.3.1",
     "@types/jest": "^26.0.19",
     "@typescript-eslint/eslint-plugin": "^4.11.0",
     "@typescript-eslint/parser": "^4.11.0",
@@ -54,7 +53,6 @@
   "dependencies": {
     "commander": "^6.2.1",
     "faker": "^5.1.0",
-    "inquirer": "^7.3.3",
     "winston": "^3.3.3"
   }
 }

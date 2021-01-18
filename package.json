@@ -1,5 +1,5 @@
 {
-  "name": "zap-core",
+  "name": "zap-cli",
   "version": "1.0.0",
   "description": "Database data generation tool",
   "main": "index.js",

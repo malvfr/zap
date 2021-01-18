@@ -1,3 +1,3 @@
-const manifest = require('../../package.json');
+const manifest = require('../../package.json'); // eslint-disable-line
 
-export const getVersion = () => manifest.version;
+export const getVersion = (): string => manifest.version;

@@ -2,20 +2,54 @@
 
 import { Command } from 'commander';
 import { getVersion } from '../shared/package.helper';
+import { join } from 'path';
+import { readFile } from 'fs/promises';
 
-const program = new Command('Zap CLI');
-const version = getVersion();
+type CliOpts = {
+  file: string;
+  quantity?: number;
+  csv?: boolean;
+  debug?: boolean;
+};
 
-program.version(version);
+(async () => {
+  const program = new Command('Zap CLI');
+  const version = getVersion();
 
-program
-  .option('-d, --debug', 'output extra debugging')
-  .option('-f, --file <value>', 'the yml file with the database schema')
-  .option('-q, --quantity <value>', 'quantity of records produced')
-  .option('-c, --csv', 'generate a csv output');
+  program.version(version);
 
-program.parse(process.argv);
+  program
+    .option('-d, --debug', 'outputs debugging information')
+    .requiredOption(
+      '-f, --file <value>',
+      'the yml file with the database schema'
+    )
+    .option('-q, --quantity <value>', 'quantity of records produced', '100')
+    .option('-c, --csv', 'generate a csv output');
 
-const options = program.opts();
+  program.parse(process.argv);
 
-if (options?.debug) console.log(options);
+  const options = program.opts() as CliOpts;
+
+  const validateOptions = (options: CliOpts) => {
+    if (isNaN(Number(options?.quantity))) {
+      console.error(`The quantity option must be a number`);
+      throw new Error('Validation error');
+    }
+  };
+
+  validateOptions(options);
+
+  if (options?.debug) console.log(options);
+
+  if (options?.file) {
+    try {
+      let yaml_file = await readFile(join(process.cwd(), options.file));
+
+      console.log(yaml_file);
+    } catch (error) {
+      console.warn('The file could not be loaded');
+      console.error(error);
+    }
+  }
+})();

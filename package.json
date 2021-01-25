@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Database data generation tool",
   "main": "index.js",
+  "bin": {
+    "zap": "build/cli/cli.js"
+  },
   "scripts": {
     "test": "jest",
     "test:cov": "jest --coverage",
@@ -10,7 +13,7 @@
     "start:dev": "nodemon",
     "start:prod": "node build/index.js",
     "start:debug": "nodemon --debug --watch",
-    "build": "rimraf ./build && tsc",
+    "build": "rimraf ./build && tsc && npm link",
     "start": "npm run build && node build/index.js",
     "lint": "eslint . --ext .ts --fix",
     "format": "prettier --write \"src/**/*.ts\""

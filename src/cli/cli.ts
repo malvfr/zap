@@ -4,6 +4,7 @@ import { Command } from 'commander';
 import { getVersion } from '../shared/package.helper';
 import { join } from 'path';
 import { readFile } from 'fs/promises';
+import { parseFile } from '../core/parser';
 
 type CliOpts = {
   file: string;
@@ -25,6 +26,8 @@ type CliOpts = {
       'the yml file with the database schema'
     )
     .option('-q, --quantity <value>', 'quantity of records produced', '100')
+    .option('-l, --locale <value>', 'the data locale format', 'en_US')
+    .option('-b, --bulk', 'SQL output in a single INSERT command')
     .option('-c, --csv', 'generate a csv output');
 
   program.parse(process.argv);
@@ -44,9 +47,12 @@ type CliOpts = {
 
   if (options?.file) {
     try {
-      let yaml_file = await readFile(join(process.cwd(), options.file));
+      const fileAsString = await readFile(
+        join(process.cwd(), options.file),
+        'utf-8'
+      );
 
-      console.log(yaml_file);
+      const parsedFiile: any = parseFile(fileAsString);
     } catch (error) {
       console.warn('The file could not be loaded');
       console.error(error);

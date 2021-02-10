@@ -5,12 +5,15 @@ import { getVersion } from '../shared/package.helper';
 import { join } from 'path';
 import { readFile } from 'fs/promises';
 import { parseFile } from '../core/parser';
+import { start } from '../core/data_generator';
 
 type CliOpts = {
   file: string;
-  quantity?: number;
-  csv?: boolean;
-  debug?: boolean;
+  quantity: number;
+  csv: boolean;
+  debug: boolean;
+  bulk: boolean;
+  locale: string;
 };
 
 (async () => {
@@ -27,8 +30,8 @@ type CliOpts = {
     )
     .option('-q, --quantity <value>', 'quantity of records produced', '100')
     .option('-l, --locale <value>', 'the data locale format', 'en_US')
-    .option('-b, --bulk', 'SQL output in a single INSERT command')
-    .option('-c, --csv', 'generate a csv output');
+    .option('-b, --bulk', 'SQL output in a single INSERT command', false)
+    .option('-c, --csv', 'generate a csv output', false);
 
   program.parse(process.argv);
 
@@ -45,17 +48,16 @@ type CliOpts = {
 
   if (options?.debug) console.log(options);
 
-  if (options?.file) {
-    try {
-      const fileAsString = await readFile(
-        join(process.cwd(), options.file),
-        'utf-8'
-      );
+  try {
+    const fileAsString = await readFile(
+      join(process.cwd(), options.file),
+      'utf-8'
+    );
 
-      const parsedFiile: any = parseFile(fileAsString);
-    } catch (error) {
-      console.warn('The file could not be loaded');
-      console.error(error);
-    }
+    const parsedFile = parseFile(fileAsString);
+    start(parsedFile, options.locale);
+  } catch (error) {
+    console.warn('The schema definition file could not be loaded');
+    console.error(error);
   }
 })();

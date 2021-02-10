@@ -1,7 +1,38 @@
-import faker from 'faker';
+import { ZapSchema, ZapSchemaCategories } from './schema/zap.schema';
 
-const getFaker = (locale: string) => {
-  faker.setLocale(locale);
+export const start = (schema: ZapSchema, locale: string, bulk?: boolean) => {
+  const { tables } = schema;
 
-  return faker;
+  tables.forEach((table) => {
+    const { quantity, name, fields } = table;
+
+    for (let i = 1; i <= quantity; i++) {
+      fields.forEach(async (column) => {
+        const { name: columnName, category } = column;
+
+        const categoryKey = Object.keys(
+          category
+        )[0] as keyof ZapSchemaCategories;
+
+        const categoryValue = category[categoryKey];
+
+        try {
+          const mockGenerator = await getGeneratorInstance(categoryKey);
+          console.log(await mockGenerator(categoryValue, locale));
+        } catch (err) {
+          console.error(err.message);
+          process.exit(1);
+        }
+      });
+    }
+  });
+};
+
+const getGeneratorInstance = async (type: string) => {
+  switch (type) {
+    case 'vehicle':
+      return (await import('./generator/vehicle_generator')).default;
+    default:
+      throw new Error(`The data type "${type}" is not supported`);
+  }
 };

@@ -28,10 +28,12 @@ export const start = (schema: ZapSchema, locale: string, bulk?: boolean) => {
   });
 };
 
-const getGeneratorInstance = async (type: string) => {
+const getGeneratorInstance = async (type: keyof ZapSchemaCategories) => {
   switch (type) {
     case 'vehicle':
       return (await import('./generator/vehicle_generator')).default;
+    case 'git':
+      return (await import('./generator/git_generator')).default;
     default:
       throw new Error(`The data type "${type}" is not supported`);
   }

@@ -1,4 +1,6 @@
-export const loadFakerModule = async (locale: string) => {
+export const loadFakerModule = async (
+  locale: string
+): Promise<Faker.FakerStatic> => {
   let generatorModule;
   try {
     generatorModule = await import(`faker/locale/${locale}`);

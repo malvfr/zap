@@ -1,4 +1,4 @@
-export const generateSQL = ({ table, columns, values }: { table: string; columns: string[]; values: string[] }) => {
+export const generateSQL = ({ table, columns, values }: { table: string; columns: string[]; values: (string | number)[] }) => {
   table = table.toUpperCase();
   const parsedColumns = parseColumns(columns);
 
@@ -9,7 +9,7 @@ const parseColumns = (columns: string[]) => {
   return `(${columns.reduce((prev, cur) => `${prev},` + cur)})`;
 };
 
-const parseValues = (values: string[]) => {
+const parseValues = (values: (string | number)[]) => {
   return "'" + values.join("','") + "'";
 };
 

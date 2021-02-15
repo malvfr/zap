@@ -12,7 +12,6 @@ type CliOpts = {
   quantity: number;
   csv: boolean;
   debug: boolean;
-  bulk: boolean;
   locale: string;
 };
 
@@ -24,13 +23,9 @@ type CliOpts = {
 
   program
     .option('-d, --debug', 'outputs debugging information')
-    .requiredOption(
-      '-f, --file <value>',
-      'the yml file with the database schema'
-    )
+    .requiredOption('-f, --file <value>', 'the yml file with the database schema')
     .option('-q, --quantity <value>', 'quantity of records produced', '100')
     .option('-l, --locale <value>', 'the data locale format', 'en_US')
-    .option('-b, --bulk', 'SQL output in a single INSERT command', false)
     .option('-c, --csv', 'generate a csv output', false);
 
   program.parse(process.argv);
@@ -49,10 +44,7 @@ type CliOpts = {
   if (options?.debug) console.log(options);
 
   try {
-    const fileAsString = await readFile(
-      join(process.cwd(), options.file),
-      'utf-8'
-    );
+    const fileAsString = await readFile(join(process.cwd(), options.file), 'utf-8');
 
     const parsedFile = parseFile(fileAsString);
     start(parsedFile, options.locale);

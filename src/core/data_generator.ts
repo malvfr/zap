@@ -1,6 +1,6 @@
-import { ZapSchema, ZapSchemaCategories } from './schema/zap.schema';
+import { ZapSchema, ZapSchemaCategories, ZapSchemaGit, ZapSchemaVehicle } from './schema/zap.schema';
 
-export const start = (schema: ZapSchema, locale: string, bulk?: boolean) => {
+export const start = (schema: ZapSchema, locale: string) => {
   const { tables } = schema;
 
   tables.forEach((table) => {
@@ -10,15 +10,14 @@ export const start = (schema: ZapSchema, locale: string, bulk?: boolean) => {
       fields.forEach(async (column) => {
         const { name: columnName, category } = column;
 
-        const categoryKey = Object.keys(
-          category
-        )[0] as keyof ZapSchemaCategories;
+        const categoryKey = Object.keys(category)[0] as keyof ZapSchemaCategories;
 
         const categoryValue = category[categoryKey];
 
         try {
-          const mockGenerator = await getGeneratorInstance(categoryKey);
-          console.log(await mockGenerator(categoryValue, locale));
+          const result = await generateValue(categoryKey, categoryValue, locale);
+
+          console.log(result);
         } catch (err) {
           console.error(err.message);
           process.exit(1);
@@ -28,13 +27,13 @@ export const start = (schema: ZapSchema, locale: string, bulk?: boolean) => {
   });
 };
 
-const getGeneratorInstance = async (type: keyof ZapSchemaCategories) => {
-  switch (type) {
+const generateValue = async (category: keyof ZapSchemaCategories, categoryValue: string, locale: string) => {
+  switch (category) {
     case 'vehicle':
-      return (await import('./generator/vehicle_generator')).default;
+      return (await import('./generator/vehicle_generator')).default(categoryValue as ZapSchemaVehicle, locale);
     case 'git':
-      return (await import('./generator/git_generator')).default;
+      return (await import('./generator/git_generator')).default(categoryValue as ZapSchemaGit, locale);
     default:
-      throw new Error(`The data type "${type}" is not supported`);
+      throw new Error(`The data type "${category}" is not supported`);
   }
 };

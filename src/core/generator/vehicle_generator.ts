@@ -1,6 +1,7 @@
 import { loadFakerModule } from '../../shared/module_loader';
+import { ZapSchemaVehicle } from '../schema/zap.schema';
 
-export default async (options: string, locale: string): Promise<string> => {
+export default async (options: ZapSchemaVehicle, locale: string): Promise<string> => {
   const { vehicle } = await loadFakerModule(locale);
 
   switch (options) {

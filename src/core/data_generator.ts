@@ -1,28 +1,49 @@
 import { ZapSchema, ZapSchemaCategories, ZapSchemaGit, ZapSchemaVehicle } from './schema/zap.schema';
+import { generateSQL } from './sql';
 
 export const start = (schema: ZapSchema, locale: string) => {
   const { tables } = schema;
 
-  tables.forEach((table) => {
+  tables.forEach(async (table) => {
     const { quantity, name, fields } = table;
 
     for (let i = 1; i <= quantity; i++) {
-      fields.forEach(async (column) => {
-        const { name: columnName, category } = column;
+      let tableColumns: string[] = [];
+      const fieldsData = await Promise.all(
+        fields.map(async (column) => {
+          const { name: columnName, category } = column;
 
-        const categoryKey = Object.keys(category)[0] as keyof ZapSchemaCategories;
+          tableColumns.push(columnName);
 
-        const categoryValue = category[categoryKey];
+          const categoryKey = Object.keys(category)[0] as keyof ZapSchemaCategories;
 
-        try {
-          const result = await generateValue(categoryKey, categoryValue, locale);
+          const categoryValue = category[categoryKey];
 
-          console.log(result);
-        } catch (err) {
-          console.error(err.message);
-          process.exit(1);
-        }
-      });
+          //console.log('ColumnName', columnName);
+          //console.log('CategoryKey', categoryKey);
+          //console.log('CategoryValue', categoryValue);
+
+          try {
+            const info = await generateValue(categoryKey, categoryValue, locale);
+            //console.log('Generated value', info);
+            return info;
+          } catch (err) {
+            console.error(err.message);
+            process.exit(1);
+          }
+        })
+      );
+
+      //console.log('table name', name);
+      // console.log('table data', fieldsData);
+
+      console.log(
+        generateSQL({
+          table: name,
+          columns: tableColumns,
+          values: fieldsData
+        })
+      );
     }
   });
 };

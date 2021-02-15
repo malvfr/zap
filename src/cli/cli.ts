@@ -9,7 +9,6 @@ import { start } from '../core/data_generator';
 
 type CliOpts = {
   file: string;
-  quantity: number;
   csv: boolean;
   debug: boolean;
   locale: string;
@@ -24,22 +23,12 @@ type CliOpts = {
   program
     .option('-d, --debug', 'outputs debugging information')
     .requiredOption('-f, --file <value>', 'the yml file with the database schema')
-    .option('-q, --quantity <value>', 'quantity of records produced', '100')
     .option('-l, --locale <value>', 'the data locale format', 'en_US')
     .option('-c, --csv', 'generate a csv output', false);
 
   program.parse(process.argv);
 
   const options = program.opts() as CliOpts;
-
-  const validateOptions = (options: CliOpts) => {
-    if (isNaN(Number(options?.quantity))) {
-      console.error(`The quantity option must be a number`);
-      throw new Error('Validation error');
-    }
-  };
-
-  validateOptions(options);
 
   if (options?.debug) console.log(options);
 

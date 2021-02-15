@@ -20,6 +20,6 @@ export default async (options: ZapSchemaVehicle, locale: string): Promise<string
     case 'color':
       return vehicle.color();
     default:
-      throw new Error('Invalid vehicle type');
+      throw new Error('Invalid vehicle option');
   }
 };

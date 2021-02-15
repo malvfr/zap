@@ -1,6 +1,7 @@
 import { loadFakerModule } from '../../shared/module_loader';
+import { ZapSchemaGit } from '../schema/zap.schema';
 
-export default async (options: string, locale: string): Promise<string> => {
+export default async (options: ZapSchemaGit, locale: string): Promise<string> => {
   const { git } = await loadFakerModule(locale);
 
   switch (options) {
@@ -15,6 +16,6 @@ export default async (options: string, locale: string): Promise<string> => {
     case 'shortSha':
       return git.shortSha();
     default:
-      throw new Error('Invalid vehicle type');
+      throw new Error('Invalid git option');
   }
 };

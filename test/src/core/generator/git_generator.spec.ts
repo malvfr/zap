@@ -2,23 +2,23 @@ import gitGen from '../../../../src/core/generator/git_generator';
 
 describe('Test git data generation', () => {
   test('Should return a string', async () => {
-    let returnedValue = await gitGen('branch', 'en_US');
+    let returnedValue = await gitGen({ type: 'branch' }, 'en_US');
+
+    expect(typeof returnedValue).toBe('string');
+    {
+      type: returnedValue = await gitGen({ type: 'commitEntry' }, 'en_US');
+    }
+    expect(typeof returnedValue).toBe('string');
+
+    returnedValue = await gitGen({ type: 'commitMessage' }, 'en_US');
 
     expect(typeof returnedValue).toBe('string');
 
-    returnedValue = await gitGen('commitEntry', 'en_US');
+    returnedValue = await gitGen({ type: 'commitSha' }, 'en_US');
 
     expect(typeof returnedValue).toBe('string');
 
-    returnedValue = await gitGen('commitMessage', 'en_US');
-
-    expect(typeof returnedValue).toBe('string');
-
-    returnedValue = await gitGen('commitSha', 'en_US');
-
-    expect(typeof returnedValue).toBe('string');
-
-    returnedValue = await gitGen('shortSha', 'en_US');
+    returnedValue = await gitGen({ type: 'shortSha' }, 'en_US');
 
     expect(typeof returnedValue).toBe('string');
   });

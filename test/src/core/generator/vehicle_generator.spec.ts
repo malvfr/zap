@@ -2,31 +2,31 @@ import vehicleGen from '../../../../src/core/generator/vehicle_generator';
 
 describe('Test vehicle data generation', () => {
   test('Should return a string', async () => {
-    let returnedValue = await vehicleGen('vehicle', 'en_US');
+    let returnedValue = await vehicleGen({ type: 'vehicle' }, 'en_US');
 
     expect(typeof returnedValue).toBe('string');
 
-    returnedValue = await vehicleGen('color', 'en_US');
+    returnedValue = await vehicleGen({ type: 'color' }, 'en_US');
 
     expect(typeof returnedValue).toBe('string');
 
-    returnedValue = await vehicleGen('fuel', 'en_US');
+    returnedValue = await vehicleGen({ type: 'fuel' }, 'en_US');
 
     expect(typeof returnedValue).toBe('string');
 
-    returnedValue = await vehicleGen('manufacturer', 'en_US');
+    returnedValue = await vehicleGen({ type: 'manufacturer' }, 'en_US');
 
     expect(typeof returnedValue).toBe('string');
 
-    returnedValue = await vehicleGen('type', 'en_US');
+    returnedValue = await vehicleGen({ type: 'type' }, 'en_US');
 
     expect(typeof returnedValue).toBe('string');
 
-    returnedValue = await vehicleGen('vin', 'en_US');
+    returnedValue = await vehicleGen({ type: 'vin' }, 'en_US');
 
     expect(typeof returnedValue).toBe('string');
 
-    returnedValue = await vehicleGen('model', 'en_US');
+    returnedValue = await vehicleGen({ type: 'model' }, 'en_US');
 
     expect(typeof returnedValue).toBe('string');
   });

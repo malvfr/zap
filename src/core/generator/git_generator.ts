@@ -1,10 +1,10 @@
 import { loadFakerModule } from '../../shared/module_loader';
 import { ZapSchemaGit } from '../schema/zap.schema';
 
-export default async (options: ZapSchemaGit, locale: string): Promise<string> => {
+export default async ({ type }: ZapSchemaGit, locale: string): Promise<string> => {
   const { git } = await loadFakerModule(locale);
 
-  switch (options) {
+  switch (type) {
     case 'branch':
       return git.branch();
     case 'commitEntry':

@@ -1,10 +1,20 @@
-export type ZapSchemaVehicle = 'vehicle' | 'color' | 'manufacturer' | 'model' | 'type' | 'vin' | 'fuel';
+type ZapSchemaVehicleType = 'vehicle' | 'color' | 'manufacturer' | 'model' | 'type' | 'vin' | 'fuel';
+export type ZapSchemaVehicle = { type: ZapSchemaVehicleType };
 
-export type ZapSchemaGit = 'branch' | 'commitSha' | 'commitEntry' | 'commitMessage' | 'commitSha' | 'shortSha';
+type ZapSchemaGitType = 'branch' | 'commitSha' | 'commitEntry' | 'commitMessage' | 'commitSha' | 'shortSha';
+export type ZapSchemaGit = { type: ZapSchemaGitType };
+
+type ZapSchemaIDType = 'uuid' | 'sequentialInteger' | 'randomInteger';
+export type ZapSchemaID = { type: ZapSchemaIDType; start?: number };
 
 export type ZapSchemaCategories = {
   vehicle: ZapSchemaVehicle;
   git: ZapSchemaGit;
+  ID: ZapSchemaID;
+};
+
+export type ZapSchemaMetadata = {
+  index: number;
 };
 
 type ZapSchemaField = {

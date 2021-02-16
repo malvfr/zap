@@ -6,28 +6,38 @@ describe('Test the conversion between yaml string and json', () => {
     - name: "CARROS"
       quantity: 2
       fields:
-        #- name: "PORTFOLIO_ID"
-        #category:
-        # integer:
-        #start: 500
+        - name: "PORTFOLIO_ID"
+          category:
+            ID:
+              type: sequentialInteger
+              start: 1000
         - name: "modelo"
           category:
-            vehicle: vehicle
+            vehicle:
+              type: vehicle
         - name: "cor"
           category:
-            vehicle: color
+            vehicle:
+              type: color
     - name: "CARROS_VELHOS"
-      quantity: 1
+      quantity: 2
       fields:
+        - name: "PORTFOLIO_ID"
+          category:
+            ID:
+              type: uuid
         - name: "nome_velho"
           category:
-            vehicle: vehicle
+            vehicle:
+              type: vehicle
         - name: "combustivel_velho"
           category:
-            vehicle: fuel
+            vehicle:
+              type: fuel
         - name: "carro"
           category:
-            vehicle: manufacturer`;
+            vehicle:
+              type: manufacturer`;
 
     const jsonData = {
       tables: [
@@ -35,17 +45,19 @@ describe('Test the conversion between yaml string and json', () => {
           name: 'CARROS',
           quantity: 2,
           fields: [
-            { name: 'modelo', category: { vehicle: 'vehicle' } },
-            { name: 'cor', category: { vehicle: 'color' } }
+            { name: 'PORTFOLIO_ID', category: { ID: { type: 'sequentialInteger', start: 1000 } } },
+            { name: 'modelo', category: { vehicle: { type: 'vehicle' } } },
+            { name: 'cor', category: { vehicle: { type: 'color' } } }
           ]
         },
         {
           name: 'CARROS_VELHOS',
-          quantity: 1,
+          quantity: 2,
           fields: [
-            { name: 'nome_velho', category: { vehicle: 'vehicle' } },
-            { name: 'combustivel_velho', category: { vehicle: 'fuel' } },
-            { name: 'carro', category: { vehicle: 'manufacturer' } }
+            { name: 'PORTFOLIO_ID', category: { ID: { type: 'uuid' } } },
+            { name: 'nome_velho', category: { vehicle: { type: 'vehicle' } } },
+            { name: 'combustivel_velho', category: { vehicle: { type: 'fuel' } } },
+            { name: 'carro', category: { vehicle: { type: 'manufacturer' } } }
           ]
         }
       ]

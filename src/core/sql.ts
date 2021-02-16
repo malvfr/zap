@@ -1,4 +1,12 @@
-export const generateSQL = ({ table, columns, values }: { table: string; columns: string[]; values: (string | number)[] }) => {
+export const generateSQL = ({
+  table,
+  columns,
+  values
+}: {
+  table: string;
+  columns: string[];
+  values: (string | number)[];
+}): string => {
   table = table.toUpperCase();
   const parsedColumns = parseColumns(columns);
 

@@ -2,14 +2,14 @@ import { ZapSchema, ZapSchemaCategories, ZapSchemaGit, ZapSchemaVehicle } from '
 import { generateSQL } from './sql';
 import { appendFile } from 'fs/promises';
 
-export const start = (schema: ZapSchema, locale: string) => {
+export const start = (schema: ZapSchema, locale: string): void => {
   const { tables } = schema;
 
   tables.forEach(async (table) => {
     const { quantity, name: tableName, fields } = table;
 
     for (let i = 1; i <= quantity; i++) {
-      let tableColumns: string[] = [];
+      const tableColumns: string[] = [];
       const fieldsData = await Promise.all(
         fields.map(async (column) => {
           const { name: columnName, category } = column;

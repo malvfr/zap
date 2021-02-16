@@ -1,11 +1,12 @@
 import { ZapSchema, ZapSchemaCategories, ZapSchemaGit, ZapSchemaVehicle } from './schema/zap.schema';
 import { generateSQL } from './sql';
+import { appendFile } from 'fs/promises';
 
 export const start = (schema: ZapSchema, locale: string) => {
   const { tables } = schema;
 
   tables.forEach(async (table) => {
-    const { quantity, name, fields } = table;
+    const { quantity, name: tableName, fields } = table;
 
     for (let i = 1; i <= quantity; i++) {
       let tableColumns: string[] = [];
@@ -37,15 +38,19 @@ export const start = (schema: ZapSchema, locale: string) => {
       //console.log('table name', name);
       // console.log('table data', fieldsData);
 
-      console.log(
-        generateSQL({
-          table: name,
-          columns: tableColumns,
-          values: fieldsData
-        })
-      );
+      const mock = generateSQL({
+        table: tableName,
+        columns: tableColumns,
+        values: fieldsData
+      });
+
+      await writeToFile(mock, tableName);
     }
   });
+};
+
+const writeToFile = async (data: string, tableName: string) => {
+  await appendFile(`${tableName}.txt`, data + '\n', 'utf-8');
 };
 
 const generateValue = async (category: keyof ZapSchemaCategories, categoryValue: string, locale: string) => {

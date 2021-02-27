@@ -10,7 +10,7 @@ export const generateSQL = ({
   table = table.toUpperCase();
   const parsedColumns = parseColumns(columns);
 
-  return `${generateCommand(table, parsedColumns)} VALUES (${parseValues(values)})`;
+  return `${generateCommand(table, parsedColumns)} VALUES (${parseValues(values)});`;
 };
 
 const parseColumns = (columns: string[]) => {

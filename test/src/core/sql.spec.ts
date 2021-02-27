@@ -1,4 +1,4 @@
-import { generateSQL } from '../../../src/core/sql';
+import { generateSQL } from '../../../src/core/writer/sql';
 
 describe('Test SQL command generation', () => {
   test('Should return the correct SQL command', () => {
@@ -8,7 +8,7 @@ describe('Test SQL command generation', () => {
       values: ['Corsa', 2000]
     };
 
-    const returnedValue = "INSERT INTO TABLE_NAME (Vehicle,Year) VALUES ('Corsa','2000')";
+    const returnedValue = "INSERT INTO TABLE_NAME (Vehicle,Year) VALUES ('Corsa','2000');";
 
     expect(generateSQL(args)).toBe(returnedValue);
   });

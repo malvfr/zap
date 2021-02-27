@@ -3,3 +3,5 @@ coverage
 build
 logs
 input.yml
+*.txt
+*.sql

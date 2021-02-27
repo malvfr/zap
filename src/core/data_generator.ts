@@ -6,7 +6,7 @@ import {
   ZapSchemaMetadata,
   ZapSchemaVehicle
 } from './schema/zap.schema';
-import { generateSQL } from './sql';
+import { generateSQL } from './writer/sql';
 import { appendFile } from 'fs/promises';
 
 export const start = (schema: ZapSchema, locale: string): void => {
@@ -53,7 +53,7 @@ export const start = (schema: ZapSchema, locale: string): void => {
 };
 
 const writeToFile = async (data: string, tableName: string) => {
-  await appendFile(`${tableName}.txt`, data + '\n', 'utf-8');
+  await appendFile(`${tableName}.sql`, data + '\n', 'utf-8');
 };
 
 const generateValue = async (

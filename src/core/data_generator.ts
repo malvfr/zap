@@ -4,56 +4,79 @@ import {
   ZapSchemaGit,
   ZapSchemaID,
   ZapSchemaMetadata,
+  ZapSchemaTable,
   ZapSchemaVehicle
 } from './schema/zap.schema';
+import { writeToFile } from './writer/file_writer';
 import { generateSQL } from './writer/sql';
-import { appendFile } from 'fs/promises';
 
-export const start = (schema: ZapSchema, locale: string): void => {
+export const start = async (schema: ZapSchema, locale: string): Promise<void> => {
   const { tables } = schema;
 
-  tables.forEach(async (table) => {
-    const { quantity, name: tableName, fields } = table;
+  await iterateOverTables(tables, locale);
+};
 
-    for (let index = 0; index < quantity; index++) {
+const iterateOverTables = async (tables: ZapSchemaTable[], locale: string) => {
+  const result = await Promise.all(
+    tables.map(async (table) => {
+      const { quantity, name: tableName, fields } = table;
+
+      let fieldsData: string[][] = [];
       const tableColumns: string[] = [];
-      const fieldsData = await Promise.all(
-        fields.map(async (column) => {
-          const { name: columnName, category } = column;
 
-          tableColumns.push(columnName);
+      for (let index = 0; index < quantity; index++) {
+        fieldsData.push(
+          await Promise.all(
+            fields.map(async (column) => {
+              const { name: columnName, category } = column;
 
-          const categoryKey = Object.keys(category)[0] as keyof ZapSchemaCategories;
+              tableColumns.push(columnName);
 
-          let categoryOptions = category[categoryKey];
+              const categoryKey = Object.keys(category)[0] as keyof ZapSchemaCategories;
 
-          const meta = {
-            index,
-            categoryOptions
-          };
+              let categoryOptions = category[categoryKey];
 
-          try {
-            return generateValue(categoryKey, categoryOptions, locale, meta);
-          } catch (err) {
-            console.error(err.message);
-            process.exit(1);
-          }
-        })
-      );
+              const meta = {
+                index,
+                categoryOptions
+              };
 
-      const mock = generateSQL({
-        table: tableName,
-        columns: tableColumns,
-        values: fieldsData
-      });
+              try {
+                return generateValue(categoryKey, categoryOptions, locale, meta);
+              } catch (err) {
+                console.error(err.message);
+                process.exit(1);
+              }
+            })
+          )
+        );
+      }
 
-      await writeToFile(mock, tableName);
-    }
+      return {
+        tableData: fieldsData,
+        tableName,
+        tableColumns: tableColumns.filter((value, index, self) => self.indexOf(value) === index) //TODO: Fix this way of filtering unique columns
+      };
+    })
+  );
+
+  await outputData(result);
+};
+
+const outputData = async (schema: { tableData: string[][]; tableName: string; tableColumns: string[] }[]) => {
+  schema.forEach(async ({ tableName, tableColumns, tableData }) => {
+    tableData.forEach(async (data) => await writeData(tableName, tableColumns, data));
   });
 };
 
-const writeToFile = async (data: string, tableName: string) => {
-  await appendFile(`${tableName}.sql`, data + '\n', 'utf-8');
+const writeData = async (table: string, columns: string[], values: string[]) => {
+  const mock = generateSQL({
+    table,
+    columns,
+    values
+  });
+
+  await writeToFile(mock, table);
 };
 
 const generateValue = async (

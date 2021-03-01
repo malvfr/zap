@@ -1,4 +1,4 @@
-import { generateSQL } from '../../../src/core/writer/sql';
+import { generateSQL } from '../../../../src/core/writer/sql';
 
 describe('Test SQL command generation', () => {
   test('Should return the correct SQL command', () => {

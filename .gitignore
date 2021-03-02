@@ -5,3 +5,4 @@ logs
 input.yml
 *.txt
 *.sql
+*.csv

@@ -28,15 +28,21 @@ type CliOpts = {
 
   program.parse(process.argv);
 
-  const options = program.opts() as CliOpts;
+  const { debug, file, csv, locale } = program.opts() as CliOpts;
 
-  if (options?.debug) console.log(options);
+  if (debug)
+    console.log({
+      csv,
+      debug,
+      file,
+      locale
+    });
 
   try {
-    const fileAsString = await readFile(join(process.cwd(), options.file), 'utf-8');
+    const fileAsString = await readFile(join(process.cwd(), file), 'utf-8');
 
     const parsedFile = parseFile(fileAsString);
-    start(parsedFile, options.locale);
+    await start(parsedFile, locale, csv);
   } catch (error) {
     console.warn('The schema definition file could not be loaded');
     console.error(error);

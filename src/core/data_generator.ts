@@ -4,56 +4,71 @@ import {
   ZapSchemaGit,
   ZapSchemaID,
   ZapSchemaMetadata,
+  ZapSchemaTable,
   ZapSchemaVehicle
 } from './schema/zap.schema';
-import { generateSQL } from './writer/sql';
-import { appendFile } from 'fs/promises';
+import { writeCSV } from './writer/csv';
+import { writeSQL } from './writer/sql';
 
-export const start = (schema: ZapSchema, locale: string): void => {
+export const start = async (schema: ZapSchema, locale: string, csv = false): Promise<void> => {
   const { tables } = schema;
 
-  tables.forEach(async (table) => {
-    const { quantity, name: tableName, fields } = table;
-
-    for (let index = 0; index < quantity; index++) {
-      const tableColumns: string[] = [];
-      const fieldsData = await Promise.all(
-        fields.map(async (column) => {
-          const { name: columnName, category } = column;
-
-          tableColumns.push(columnName);
-
-          const categoryKey = Object.keys(category)[0] as keyof ZapSchemaCategories;
-
-          let categoryOptions = category[categoryKey];
-
-          const meta = {
-            index,
-            categoryOptions
-          };
-
-          try {
-            return generateValue(categoryKey, categoryOptions, locale, meta);
-          } catch (err) {
-            console.error(err.message);
-            process.exit(1);
-          }
-        })
-      );
-
-      const mock = generateSQL({
-        table: tableName,
-        columns: tableColumns,
-        values: fieldsData
-      });
-
-      await writeToFile(mock, tableName);
-    }
-  });
+  await iterateOverTables(tables, locale, csv);
 };
 
-const writeToFile = async (data: string, tableName: string) => {
-  await appendFile(`${tableName}.sql`, data + '\n', 'utf-8');
+const iterateOverTables = async (tables: ZapSchemaTable[], locale: string, csv = false) => {
+  const result = await Promise.all(
+    tables.map(async (table) => {
+      const { quantity, name: tableName, fields } = table;
+
+      let fieldsData: string[][] = [];
+      const tableColumns: string[] = [];
+
+      for (let index = 0; index < quantity; index++) {
+        fieldsData.push(
+          await Promise.all(
+            fields.map(async (column) => {
+              const { name: columnName, category } = column;
+
+              tableColumns.push(columnName);
+
+              const categoryKey = Object.keys(category)[0] as keyof ZapSchemaCategories;
+
+              let categoryOptions = category[categoryKey];
+
+              const meta = {
+                index,
+                categoryOptions
+              };
+
+              try {
+                return generateValue(categoryKey, categoryOptions, locale, meta);
+              } catch (err) {
+                console.error(err.message);
+                process.exit(1);
+              }
+            })
+          )
+        );
+      }
+
+      return {
+        tableData: fieldsData,
+        tableName,
+        tableColumns: tableColumns.filter((value, index, self) => self.indexOf(value) === index) //TODO: Fix this way of filtering unique columns
+      };
+    })
+  );
+
+  await outputData(result, csv);
+};
+
+const outputData = async (schema: { tableData: string[][]; tableName: string; tableColumns: string[] }[], csv = false) => {
+  if (csv) {
+    await writeCSV(schema);
+  } else {
+    await writeSQL(schema);
+  }
 };
 
 const generateValue = async (

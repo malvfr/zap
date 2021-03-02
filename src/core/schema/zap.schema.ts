@@ -22,12 +22,11 @@ type ZapSchemaField = {
   category: ZapSchemaCategories;
 };
 
+export type ZapSchemaTable = {
+  name: string;
+  quantity: number;
+  fields: ZapSchemaField[];
+};
 export type ZapSchema = {
-  tables: [
-    {
-      name: string;
-      quantity: number;
-      fields: [ZapSchemaField];
-    }
-  ];
+  tables: ZapSchemaTable[];
 };

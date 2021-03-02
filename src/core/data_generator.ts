@@ -21,7 +21,7 @@ const iterateOverTables = async (tables: ZapSchemaTable[], locale: string, csv =
     tables.map(async (table) => {
       const { quantity, name: tableName, fields } = table;
 
-      let fieldsData: string[][] = [];
+      const fieldsData: string[][] = [];
       const tableColumns: string[] = [];
 
       for (let index = 0; index < quantity; index++) {
@@ -34,7 +34,7 @@ const iterateOverTables = async (tables: ZapSchemaTable[], locale: string, csv =
 
               const categoryKey = Object.keys(category)[0] as keyof ZapSchemaCategories;
 
-              let categoryOptions = category[categoryKey];
+              const categoryOptions = category[categoryKey];
 
               const meta = {
                 index,

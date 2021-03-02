@@ -5,9 +5,7 @@ describe('Test git data generation', () => {
     let returnedValue = await gitGen({ type: 'branch' }, 'en_US');
 
     expect(typeof returnedValue).toBe('string');
-    {
-      type: returnedValue = await gitGen({ type: 'commitEntry' }, 'en_US');
-    }
+    returnedValue = await gitGen({ type: 'commitEntry' }, 'en_US');
     expect(typeof returnedValue).toBe('string');
 
     returnedValue = await gitGen({ type: 'commitMessage' }, 'en_US');

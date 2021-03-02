@@ -27,7 +27,7 @@ const generateCommand = (table: string, parsedColumns: string) => {
   return `INSERT INTO ${table} ${parsedColumns}`;
 };
 
-export const writeSQL = async (schema: { tableData: string[][]; tableName: string; tableColumns: string[] }[]) => {
+export const writeSQL = async (schema: { tableData: string[][]; tableName: string; tableColumns: string[] }[]): Promise<void> => {
   for (const { tableName, tableColumns, tableData } of schema) {
     for (const data of tableData) {
       await writeData(tableName, tableColumns, data);
@@ -35,7 +35,7 @@ export const writeSQL = async (schema: { tableData: string[][]; tableName: strin
   }
 };
 
-const writeData = async (tableName: string, tableColumns: string[], values: (string | number)[]) => {
+const writeData = async (tableName: string, tableColumns: string[], values: (string | number)[]): Promise<void> => {
   const command = generateSQLCommand({
     tableName,
     tableColumns,

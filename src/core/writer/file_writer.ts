@@ -1,5 +1,5 @@
 import { appendFile } from 'fs/promises';
 
-export const writeToFile = async (data: string, tableName: string) => {
-  await appendFile(`${tableName}.sql`, data + '\n', 'utf-8');
+export const writeToFile = async (data: string, filename: string) => {
+  await appendFile(filename, data + '\n', 'utf-8');
 };

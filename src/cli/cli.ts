@@ -42,7 +42,7 @@ type CliOpts = {
     const fileAsString = await readFile(join(process.cwd(), file), 'utf-8');
 
     const parsedFile = parseFile(fileAsString);
-    await start(parsedFile, locale);
+    await start(parsedFile, locale, csv);
   } catch (error) {
     console.warn('The schema definition file could not be loaded');
     console.error(error);

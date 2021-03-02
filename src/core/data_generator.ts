@@ -7,16 +7,16 @@ import {
   ZapSchemaTable,
   ZapSchemaVehicle
 } from './schema/zap.schema';
-import { writeToFile } from './writer/file_writer';
-import { generateSQL } from './writer/sql';
+import { writeCSV } from './writer/csv';
+import { writeSQL } from './writer/sql';
 
-export const start = async (schema: ZapSchema, locale: string): Promise<void> => {
+export const start = async (schema: ZapSchema, locale: string, csv = false): Promise<void> => {
   const { tables } = schema;
 
-  await iterateOverTables(tables, locale);
+  await iterateOverTables(tables, locale, csv);
 };
 
-const iterateOverTables = async (tables: ZapSchemaTable[], locale: string) => {
+const iterateOverTables = async (tables: ZapSchemaTable[], locale: string, csv = false) => {
   const result = await Promise.all(
     tables.map(async (table) => {
       const { quantity, name: tableName, fields } = table;
@@ -60,23 +60,15 @@ const iterateOverTables = async (tables: ZapSchemaTable[], locale: string) => {
     })
   );
 
-  await outputData(result);
+  await outputData(result, csv);
 };
 
-const outputData = async (schema: { tableData: string[][]; tableName: string; tableColumns: string[] }[]) => {
-  schema.forEach(async ({ tableName, tableColumns, tableData }) => {
-    tableData.forEach(async (data) => await writeData(tableName, tableColumns, data));
-  });
-};
-
-const writeData = async (table: string, columns: string[], values: string[]) => {
-  const mock = generateSQL({
-    table,
-    columns,
-    values
-  });
-
-  await writeToFile(mock, table);
+const outputData = async (schema: { tableData: string[][]; tableName: string; tableColumns: string[] }[], csv = false) => {
+  if (csv) {
+    await writeCSV(schema);
+  } else {
+    await writeSQL(schema);
+  }
 };
 
 const generateValue = async (

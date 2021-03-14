@@ -6,6 +6,7 @@ import { join } from 'path';
 import { readFile } from 'fs/promises';
 import { parseFile } from '../core/parser';
 import { start } from '../core/data_generator';
+import { logSuccess } from '../shared/log_formatter';
 
 type CliOpts = {
   file: string;
@@ -15,6 +16,8 @@ type CliOpts = {
 };
 
 (async () => {
+  console.time('Execution Time');
+
   const program = new Command('Zap CLI');
   const version = getVersion();
 
@@ -43,6 +46,9 @@ type CliOpts = {
 
     const parsedFile = parseFile(fileAsString);
     await start(parsedFile, locale, csv);
+
+    logSuccess(`\n DONE !!\n`);
+    console.timeEnd('Execution Time');
   } catch (error) {
     console.warn('The schema definition file could not be loaded');
     console.error(error);

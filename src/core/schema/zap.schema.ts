@@ -5,7 +5,7 @@ type ZapSchemaGitType = 'branch' | 'commitSha' | 'commitEntry' | 'commitMessage'
 export type ZapSchemaGit = { type: ZapSchemaGitType };
 
 type ZapSchemaIDType = 'uuid' | 'sequentialInteger' | 'randomInteger';
-export type ZapSchemaID = { type: ZapSchemaIDType; start?: number };
+export type ZapSchemaID = { type: ZapSchemaIDType; start?: number; min?: number; max?: number };
 
 export type ZapSchemaCategories = {
   vehicle: ZapSchemaVehicle;

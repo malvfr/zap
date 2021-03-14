@@ -16,6 +16,6 @@ export default async ({ type }: ZapSchemaGit, locale: string): Promise<string> =
     case 'shortSha':
       return git.shortSha();
     default:
-      throw new Error('Invalid git option');
+      throw new Error(`Invalid git ${type} option`);
   }
 };

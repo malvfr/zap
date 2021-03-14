@@ -4,6 +4,7 @@ import {
   ZapSchemaGit,
   ZapSchemaID,
   ZapSchemaMetadata,
+  ZapSchemaPerson,
   ZapSchemaTable,
   ZapSchemaVehicle
 } from './schema/zap.schema';
@@ -84,6 +85,8 @@ const generateValue = async (
       return (await import('./generator/git_generator')).default(categoryValue as ZapSchemaGit, locale);
     case 'ID':
       return (await import('./generator/id_generator')).default(categoryValue as ZapSchemaID, locale, meta);
+    case 'person':
+      return (await import('./generator/person_generator')).default(categoryValue as ZapSchemaPerson, locale);
     default:
       throw new Error(`The data type "${category}" is not supported`);
   }

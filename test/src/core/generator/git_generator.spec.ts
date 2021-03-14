@@ -22,6 +22,6 @@ describe('Test git data generation', () => {
   });
 
   test('Should throw an exception when type is invalid', async () => {
-    await expect(gitGen('invalid' as any, 'en_US')).rejects.toThrow(Error('Invalid git option'));
+    await expect(gitGen({ type: 'foo' } as any, 'en_US')).rejects.toThrow(Error('Invalid git foo option'));
   });
 });

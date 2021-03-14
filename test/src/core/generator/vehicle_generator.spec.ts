@@ -32,6 +32,6 @@ describe('Test vehicle data generation', () => {
   });
 
   test('Should throw an exception when type is invalid', async () => {
-    await expect(vehicleGen('invalid' as any, 'en_US')).rejects.toThrow(Error('Invalid vehicle option'));
+    await expect(vehicleGen({ type: 'foo' } as any, 'en_US')).rejects.toThrow(Error('Invalid vehicle foo option'));
   });
 });

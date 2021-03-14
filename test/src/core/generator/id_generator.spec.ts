@@ -36,6 +36,6 @@ describe('Test ID data generation', () => {
       index: 0
     };
 
-    await expect(idGen('invalid' as any, 'en_US', meta)).rejects.toThrow(Error('Invalid ID option'));
+    await expect(idGen({ type: 'foo' } as any, 'en_US', meta)).rejects.toThrow(Error('Invalid ID foo option'));
   });
 });

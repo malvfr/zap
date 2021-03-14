@@ -14,6 +14,6 @@ export default async ({ type, start, max, min }: ZapSchemaID, locale: string, me
 
       return (start + meta.index).toString();
     default:
-      throw new Error('Invalid ID option');
+      throw new Error(`Invalid ID ${type} option`);
   }
 };

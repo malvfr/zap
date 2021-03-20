@@ -21,11 +21,14 @@ export type ZapSchemaPerson = { type: ZapSchemaPersonType; gender?: 'M' | 'F' };
 type ZapSchemaIDType = 'uuid' | 'sequentialInteger' | 'randomInteger';
 export type ZapSchemaID = { type: ZapSchemaIDType; start?: number; min?: number; max?: number };
 
+export type ZapSchemaEnum = { values: string[] };
+
 export type ZapSchemaCategories = {
   vehicle: ZapSchemaVehicle;
   git: ZapSchemaGit;
   ID: ZapSchemaID;
   person: ZapSchemaPerson;
+  enum: ZapSchemaEnum;
 };
 
 export type ZapSchemaMetadata = {

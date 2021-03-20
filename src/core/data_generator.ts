@@ -1,6 +1,7 @@
 import {
   ZapSchema,
   ZapSchemaCategories,
+  ZapSchemaEnum,
   ZapSchemaGit,
   ZapSchemaID,
   ZapSchemaMetadata,
@@ -87,6 +88,8 @@ const generateValue = async (
       return (await import('./generator/id_generator')).default(categoryValue as ZapSchemaID, locale, meta);
     case 'person':
       return (await import('./generator/person_generator')).default(categoryValue as ZapSchemaPerson, locale);
+    case 'enum':
+      return (await import('./generator/enum_generator')).default(categoryValue as ZapSchemaEnum);
     default:
       throw new Error(`The data type "${category}" is not supported`);
   }

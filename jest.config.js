@@ -5,6 +5,7 @@ module.exports = {
   collectCoverageFrom: ["./src/**/*.ts"],
   moduleFileExtensions: ["ts", "js", "json"],
   coveragePathIgnorePatterns: [
-    "logger.ts"
+    "data_generator.ts",
+    "cli.ts",
 ],
 };

@@ -24,11 +24,11 @@ export type ZapSchemaID = { type: ZapSchemaIDType; start?: number; min?: number;
 export type ZapSchemaEnum = { values: string[] };
 
 export type ZapSchemaCategories = {
-  vehicle: ZapSchemaVehicle;
-  git: ZapSchemaGit;
-  ID: ZapSchemaID;
-  person: ZapSchemaPerson;
-  enum: ZapSchemaEnum;
+  vehicle?: ZapSchemaVehicle;
+  git?: ZapSchemaGit;
+  ID?: ZapSchemaID;
+  person?: ZapSchemaPerson;
+  enum?: ZapSchemaEnum;
 };
 
 export type ZapSchemaMetadata = {

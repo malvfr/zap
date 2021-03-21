@@ -1,5 +1,7 @@
 import { generateSQLCommand, writeSQL } from '../../../../src/core/writer/sql';
 
+jest.mock('../../../../src/shared/log_formatter');
+
 describe('Test SQL command generation', () => {
   test('Should return the correct SQL command', () => {
     const args = {

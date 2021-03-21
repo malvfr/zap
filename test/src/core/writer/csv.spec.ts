@@ -1,5 +1,7 @@
 import { generateLine, writeCSV } from '../../../../src/core/writer/csv';
 
+jest.mock('../../../../src/shared/log_formatter');
+
 describe('Test CSV line generation', () => {
   test('Should return the correct CSV line', () => {
     const args = ['Corsa', 2000];

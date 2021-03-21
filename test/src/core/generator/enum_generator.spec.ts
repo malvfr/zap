@@ -4,7 +4,7 @@ describe('Test Enum data generation', () => {
   test('Should return a string available in the array', async () => {
     const values = ['bob', 'ana', 'tyrone'];
 
-    let returnedValue = await enumGen({ values });
+    const returnedValue = await enumGen({ values });
 
     expect(typeof returnedValue).toBe('string');
   });

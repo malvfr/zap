@@ -36,6 +36,6 @@ jobs:
         run: bash <(curl -s https://codecov.io/bash) -t ${{ secrets.CODECOV_TOKEN }}
       - run: npm publish --access public
         with:
-          registry-url: "https://npm.pkg.github.com"
+          registry-url: "https://registry.npmjs.org"
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

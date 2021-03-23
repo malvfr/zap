@@ -44,7 +44,7 @@ const iterateOverTables = async (tables: ZapSchemaTable[], locale: string, csv =
               };
 
               try {
-                return generateValue(categoryKey, categoryOptions, locale, meta);
+                return await generateValue(categoryKey, categoryOptions, locale, meta);
               } catch (err) {
                 console.error(err.message);
                 process.exit(1);

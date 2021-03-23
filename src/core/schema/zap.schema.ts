@@ -1,7 +1,7 @@
 type ZapSchemaVehicleType = 'vehicle' | 'color' | 'manufacturer' | 'model' | 'type' | 'vin' | 'fuel';
 export type ZapSchemaVehicle = { type: ZapSchemaVehicleType };
 
-type ZapSchemaGitType = 'branch' | 'commitSha' | 'commitEntry' | 'commitMessage' | 'commitSha' | 'shortSha';
+type ZapSchemaGitType = 'branch' | 'commitEntry' | 'commitMessage' | 'commitSha' | 'shortSha';
 export type ZapSchemaGit = { type: ZapSchemaGitType };
 
 type ZapSchemaPersonType =

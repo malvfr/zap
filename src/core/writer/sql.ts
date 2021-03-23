@@ -17,7 +17,7 @@ export const generateSQLCommand = ({
 };
 
 const parseColumns = (columns: string[]) => {
-  return `(${columns.reduce((prev, cur) => `${prev},` + cur)})`;
+  return `(${columns.reduce((prev, cur) => `${prev},${cur}`)})`;
 };
 
 const parseValues = (values: (string | number)[]) => {

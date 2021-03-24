@@ -21,12 +21,22 @@ export type ZapSchemaPerson = { type: ZapSchemaPersonType; gender?: 'M' | 'F' };
 type ZapSchemaIDType = 'uuid' | 'sequentialInteger' | 'randomInteger';
 export type ZapSchemaID = { type: ZapSchemaIDType; start?: number; min?: number; max?: number };
 
+type ZapSchemaDateType = 'weekday' | 'future' | 'between' | 'past' | 'month';
+export type ZapSchemaDate = {
+  type: ZapSchemaDateType;
+  start?: string;
+  end?: string;
+  dateLocale?: string;
+  abbr?: boolean;
+};
+
 export type ZapSchemaEnum = { values: string[] };
 
 export type ZapSchemaCategories = {
   vehicle?: ZapSchemaVehicle;
   git?: ZapSchemaGit;
   ID?: ZapSchemaID;
+  date?: ZapSchemaDate;
   person?: ZapSchemaPerson;
   enum?: ZapSchemaEnum;
 };

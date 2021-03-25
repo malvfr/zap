@@ -14,12 +14,68 @@ src/cli: Application CLI
 
 Zap is a data seeding CLI. It supports SQL and CSV formats.
 
+## Supported generators
+
+So far, Zap CLI supports several types of generators:
+
+- Person
+- Vehicle
+- Git
+- ID
+- Date
+- Enum (You can bring your own values to be randomly selected)
+
 ## Installation
 
 Use NPM to install Zap CLI.
 
 ```bash
 npm install -g @malvfr/zap
+```
+
+## Building the schema
+
+Zap is a schema based generators, so you will need to provide a schema with your tables definitions.
+
+To build your schema you will need to create a YAML file with the following fields:
+
+- name :An array containing the name of the table.
+- quantity: The amount of records to be generated.
+- fields: Definition of the columns and their values generators.
+
+```yml
+tables:
+  - name: 'YOUR_TABLE'
+    quantity: 10
+    fields:
+      - name: 'FIELD_1_NAME'
+        category: a supported category
+```
+
+Example of a CARS table with 4 columns:
+
+```yaml
+tables:
+  - name: 'CARS'
+    quantity: 25
+    fields:
+      - name: 'CAR_ID'
+        category:
+          ID:
+            type: sequentialInteger
+            start: 100
+      - name: 'MODEL'
+        category:
+          vehicle:
+            type: vehicle
+      - name: 'COLOR'
+        category:
+          vehicle:
+            type: color
+      - name: 'ACQUISITION_DATE'
+        category:
+          date:
+            type: month
 ```
 
 ## Usage

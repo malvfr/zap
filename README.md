@@ -12,9 +12,17 @@ src/cli: Application CLI
 
 # ZAP - Seed your database with realistic data
 
-Zap is a data seeding CLI. It supports SQL and CSV formats.
+Zap is a realistic data seeding CLI, supporting CSV and SQL format. You can choose among many categories of data to create a large quantities of realistic data to populate your database.
 
-## Supported generators
+## Installation
+
+Use NPM to install Zap CLI.
+
+```bash
+npm install -g @malvfr/zap
+```
+
+## Supported generator categories
 
 So far, Zap CLI supports several types of generators:
 
@@ -25,13 +33,61 @@ So far, Zap CLI supports several types of generators:
 - Date
 - Enum (You can bring your own values to be randomly selected)
 
-## Installation
+## Supported locales
 
-Use NPM to install Zap CLI.
+Zap support the locales supported by Faker.js. If a generator data is not provided in the desired language, it will fallback to **English**.
 
-```bash
-npm install -g @malvfr/zap
-```
+<details>
+<summary>Supported Locales</summary>
+
+- az
+- ar
+- cz
+- de
+- de_AT
+- de_CH
+- en
+- en_AU
+- en_AU_ocker
+- en_BORK
+- en_CA
+- en_GB
+- en_IE
+- en_IND
+- en_US
+- en_ZA
+- es
+- es_MX
+- fa
+- fi
+- fr
+- fr_CA
+- fr_CH
+- ge
+- hy
+- hr
+- id_ID
+- it
+- ja
+- ko
+- nb_NO
+- ne
+- nl
+- nl_BE
+- pl
+- pt_BR
+- pt_PT
+- ro
+- ru
+- sk
+- sv
+- tr
+- uk
+- vi
+- zh_CN
+- zh_TW
+
+</details>
 
 ## Building the schema
 
@@ -49,7 +105,9 @@ tables:
     quantity: 10
     fields:
       - name: 'FIELD_1_NAME'
-        category: a supported category
+        category:
+          # pick of one of the supported categories:
+          # additional options
 ```
 
 Example of a CARS table with 4 columns:

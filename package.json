@@ -21,12 +21,19 @@
   },
   "keywords": [
     "database",
+    "fixture",
+    "data",
     "mock",
     "generation",
     "sql",
     "cli",
     "node",
-    "javascript"
+    "typescript",
+    "csv",
+    "seed",
+    "seeding",
+    "populate",
+    "batch"
   ],
   "author": "Matheus Alvarenga",
   "license": "ISC",

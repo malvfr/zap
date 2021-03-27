@@ -1,5 +1,5 @@
 import { loadFakerModule } from '../../shared/module_loader';
-import { ZapSchemaPerson } from '../schema/zap.schema';
+import { ZapSchemaPerson } from '../schema/person.schema';
 
 export default async ({ type, gender }: ZapSchemaPerson, locale: string): Promise<string> => {
   const { name } = await loadFakerModule(locale);

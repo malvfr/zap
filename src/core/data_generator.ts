@@ -1,15 +1,11 @@
-import {
-  ZapSchema,
-  ZapSchemaCategories,
-  ZapSchemaDate,
-  ZapSchemaEnum,
-  ZapSchemaGit,
-  ZapSchemaID,
-  ZapSchemaMetadata,
-  ZapSchemaPerson,
-  ZapSchemaTable,
-  ZapSchemaVehicle
-} from './schema/zap.schema';
+import { ZapSchemaDate } from './schema/date.schema';
+import { ZapSchemaEnum } from './schema/enum.schema';
+import { ZapSchemaGit } from './schema/git.schema';
+import { ZapSchemaID } from './schema/id.schema';
+import { ZapSchemaPerson } from './schema/person.schema';
+import { ZapSchemaRandom } from './schema/random.schema';
+import { ZapSchemaVehicle } from './schema/vehicle.schema';
+import { ZapSchema, ZapSchemaCategories, ZapSchemaMetadata, ZapSchemaTable } from './schema/zap.schema';
 import { writeCSV } from './writer/csv';
 import { writeSQL } from './writer/sql';
 
@@ -93,6 +89,8 @@ const generateValue = async (
       return (await import('./generator/enum_generator')).default(categoryValue as ZapSchemaEnum);
     case 'date':
       return (await import('./generator/date_generator')).default(categoryValue as ZapSchemaDate, locale);
+    case 'random':
+      return (await import('./generator/random_generator')).default(categoryValue as ZapSchemaRandom, locale);
     default:
       throw new Error(`The data type "${category}" is not supported`);
   }

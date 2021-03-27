@@ -47,7 +47,7 @@ type CliOpts = {
     const parsedFile = parseFile(fileAsString);
     await start(parsedFile, locale, csv);
 
-    logSuccess(`\n DONE !!\n`);
+    logSuccess(`\n DONE!\n`);
     console.timeEnd('Execution Time');
   } catch (error) {
     console.warn('The schema definition file could not be loaded');

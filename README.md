@@ -27,10 +27,12 @@ npm install -g @malvfr/zap
 So far, Zap CLI supports several types of generators:
 
 - Person
+- Address
 - Vehicle
 - Git
 - ID
 - Date
+- Random
 - Enum (You can bring your own values to be randomly selected)
 
 ## Supported locales

@@ -1,5 +1,5 @@
 import { loadFakerModule } from '../../shared/module_loader';
-import { ZapSchemaDate } from '../schema/zap.schema';
+import { ZapSchemaDate } from '../schema/date.schema';
 
 export default async ({ type, start, end, abbr, dateLocale }: ZapSchemaDate, locale: string): Promise<string> => {
   const { date } = await loadFakerModule(locale);

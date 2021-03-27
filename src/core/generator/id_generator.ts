@@ -1,5 +1,6 @@
 import { loadFakerModule } from '../../shared/module_loader';
-import { ZapSchemaMetadata, ZapSchemaID } from '../schema/zap.schema';
+import { ZapSchemaID } from '../schema/id.schema';
+import { ZapSchemaMetadata } from '../schema/zap.schema';
 
 export default async ({ type, start, max, min }: ZapSchemaID, locale: string, meta: ZapSchemaMetadata): Promise<string> => {
   const { random } = await loadFakerModule(locale);

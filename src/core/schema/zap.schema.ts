@@ -1,36 +1,11 @@
-type ZapSchemaVehicleType = 'vehicle' | 'color' | 'manufacturer' | 'model' | 'type' | 'vin' | 'fuel';
-export type ZapSchemaVehicle = { type: ZapSchemaVehicleType };
-
-type ZapSchemaGitType = 'branch' | 'commitEntry' | 'commitMessage' | 'commitSha' | 'shortSha';
-export type ZapSchemaGit = { type: ZapSchemaGitType };
-
-type ZapSchemaPersonType =
-  | 'firstName'
-  | 'lastName'
-  | 'middleName'
-  | 'jobTitle'
-  | 'prefix'
-  | 'suffix'
-  | 'title'
-  | 'jobDescriptor'
-  | 'jobArea'
-  | 'jobType';
-
-export type ZapSchemaPerson = { type: ZapSchemaPersonType; gender?: 'M' | 'F' };
-
-type ZapSchemaIDType = 'uuid' | 'sequentialInteger' | 'randomInteger';
-export type ZapSchemaID = { type: ZapSchemaIDType; start?: number; min?: number; max?: number };
-
-type ZapSchemaDateType = 'weekday' | 'future' | 'between' | 'past' | 'month';
-export type ZapSchemaDate = {
-  type: ZapSchemaDateType;
-  start?: string;
-  end?: string;
-  dateLocale?: string;
-  abbr?: boolean;
-};
-
-export type ZapSchemaEnum = { values: string[] };
+import { ZapSchemaAddress } from './address.schema';
+import { ZapSchemaDate } from './date.schema';
+import { ZapSchemaEnum } from './enum.schema';
+import { ZapSchemaGit } from './git.schema';
+import { ZapSchemaID } from './id.schema';
+import { ZapSchemaPerson } from './person.schema';
+import { ZapSchemaRandom } from './random.schema';
+import { ZapSchemaVehicle } from './vehicle.schema';
 
 export type ZapSchemaCategories = {
   vehicle?: ZapSchemaVehicle;
@@ -39,6 +14,8 @@ export type ZapSchemaCategories = {
   date?: ZapSchemaDate;
   person?: ZapSchemaPerson;
   enum?: ZapSchemaEnum;
+  random?: ZapSchemaRandom;
+  address?: ZapSchemaAddress;
 };
 
 export type ZapSchemaMetadata = {

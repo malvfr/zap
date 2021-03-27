@@ -1,5 +1,5 @@
 import { loadFakerModule } from '../../shared/module_loader';
-import { ZapSchemaGit } from '../schema/zap.schema';
+import { ZapSchemaGit } from '../schema/git.schema';
 
 export default async ({ type }: ZapSchemaGit, locale: string): Promise<string> => {
   const { git } = await loadFakerModule(locale);

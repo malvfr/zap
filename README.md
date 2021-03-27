@@ -27,6 +27,7 @@ npm install -g @malvfr/zap
 So far, Zap CLI supports several types of generators:
 
 - Person
+- Address
 - Vehicle
 - Git
 - ID

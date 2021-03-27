@@ -1,3 +1,4 @@
+import { ZapSchemaAddress } from './schema/address.schema';
 import { ZapSchemaDate } from './schema/date.schema';
 import { ZapSchemaEnum } from './schema/enum.schema';
 import { ZapSchemaGit } from './schema/git.schema';
@@ -77,20 +78,22 @@ const generateValue = async (
   meta: ZapSchemaMetadata
 ) => {
   switch (category) {
-    case 'vehicle':
-      return (await import('./generator/vehicle_generator')).default(categoryValue as ZapSchemaVehicle, locale);
+    case 'address':
+      return (await import('./generator/address_generator')).default(categoryValue as ZapSchemaAddress, locale);
+    case 'date':
+      return (await import('./generator/date_generator')).default(categoryValue as ZapSchemaDate, locale);
+    case 'enum':
+      return (await import('./generator/enum_generator')).default(categoryValue as ZapSchemaEnum);
     case 'git':
       return (await import('./generator/git_generator')).default(categoryValue as ZapSchemaGit, locale);
     case 'ID':
       return (await import('./generator/id_generator')).default(categoryValue as ZapSchemaID, locale, meta);
     case 'person':
       return (await import('./generator/person_generator')).default(categoryValue as ZapSchemaPerson, locale);
-    case 'enum':
-      return (await import('./generator/enum_generator')).default(categoryValue as ZapSchemaEnum);
-    case 'date':
-      return (await import('./generator/date_generator')).default(categoryValue as ZapSchemaDate, locale);
     case 'random':
       return (await import('./generator/random_generator')).default(categoryValue as ZapSchemaRandom, locale);
+    case 'vehicle':
+      return (await import('./generator/vehicle_generator')).default(categoryValue as ZapSchemaVehicle, locale);
     default:
       throw new Error(`The data type "${category}" is not supported`);
   }

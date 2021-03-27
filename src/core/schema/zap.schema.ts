@@ -1,3 +1,4 @@
+import { ZapSchemaAddress } from './address.schema';
 import { ZapSchemaDate } from './date.schema';
 import { ZapSchemaEnum } from './enum.schema';
 import { ZapSchemaGit } from './git.schema';
@@ -14,6 +15,7 @@ export type ZapSchemaCategories = {
   person?: ZapSchemaPerson;
   enum?: ZapSchemaEnum;
   random?: ZapSchemaRandom;
+  address?: ZapSchemaAddress;
 };
 
 export type ZapSchemaMetadata = {

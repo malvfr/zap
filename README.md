@@ -52,7 +52,7 @@ zap -c -f schema.yml
 
 ## Supported generator categories
 
-So far, Zap CLI supports several types of generators:
+So far, Zap CLI supports a few types of generators, soon more will be added:
 
 - Address
 - Date
@@ -119,25 +119,22 @@ Zap support the locales supported by Faker.js. If a generator data is not provid
 
 </details>
 
-</br>
-
-
 ## Building the schema
 
 Zap is a schema based generators, so you will need to provide a schema with your tables definitions.
 
-To build your schema you will need to create a YAML file with the following fields:
-
-- name :An array containing the name of the table.
-- quantity: The amount of records to be generated.
-- fields: Definition of the columns and their values generators.
+To build your schema you will need to create a YAML file in the following format:
 
 ```yml
 tables:
-  - name: 'YOUR_TABLE'
-    quantity: 10
-    fields:
-      - name: 'FIELD_1_NAME'
+  - name: 'YOUR_TABLE' # Name of the table
+    quantity: 10 # The amount of records to be generated.
+    fields: # Definition of the columns and their values generators.
+      - name: 'COLUMN_1_NAME'
+        category:
+          # pick of one of the supported categories:
+          # additional options
+      - name: 'COLUMN_2_NAME'
         category:
           # pick of one of the supported categories:
           # additional options

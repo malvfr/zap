@@ -1,6 +1,6 @@
 {
   "name": "@malvfr/zap",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "Database data generation tool",
   "bin": {
     "zap": "build/cli/cli.js"

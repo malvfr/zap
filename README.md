@@ -16,31 +16,59 @@ Zap is a realistic data seeding CLI, supporting CSV and SQL format. You can choo
 
 ## Installation
 
-Use NPM to install Zap CLI.
+Use NPM to perform a global installation of Zap CLI.
 
 ```bash
 npm install -g @malvfr/zap
 ```
 
+## Usage
+
+In your working directory, create a **YAML** file containing the desired database schema. After the CLI usage, the SQL or CSV files will be created at your working directory.
+
+You can display information about Zap CLI through the **"h"** flag:
+
+```bash
+zap -h
+```
+
+Given your schema file is named **schema.yml**
+
+```bash
+zap -f schema.yml
+```
+
+If you want to specify a locale, use the **"l"** flag (See the supported locales below)
+
+```bash
+zap -f schema.yml -l 'en_US'
+```
+
+If you want to generate a CSV output, use the **"c"** flag
+
+```bash
+zap -c -f schema.yml
+```
+
 ## Supported generator categories
 
-So far, Zap CLI supports several types of generators:
+So far, Zap CLI supports a few types of generators, soon more will be added:
 
-- Person
 - Address
-- Vehicle
-- Git
-- ID
 - Date
-- Random
 - Enum (You can bring your own values to be randomly selected)
+- ID
+- Git
+- Person
+- Random
+- Vehicle
 
 ## Supported locales
 
 Zap support the locales supported by Faker.js. If a generator data is not provided in the desired language, it will fallback to **English**.
 
 <details>
-<summary>Supported Locales</summary>
+<summary>Locales</summary>
 
 - az
 - ar
@@ -95,24 +123,219 @@ Zap support the locales supported by Faker.js. If a generator data is not provid
 
 Zap is a schema based generators, so you will need to provide a schema with your tables definitions.
 
-To build your schema you will need to create a YAML file with the following fields:
-
-- name :An array containing the name of the table.
-- quantity: The amount of records to be generated.
-- fields: Definition of the columns and their values generators.
+To build your schema you will need to create a YAML file in the following format:
 
 ```yml
 tables:
-  - name: 'YOUR_TABLE'
-    quantity: 10
-    fields:
-      - name: 'FIELD_1_NAME'
+  - name: 'YOUR_TABLE' # Name of the table
+    quantity: 10 # The amount of records to be generated.
+    fields: # Definition of the columns and their values generators.
+      - name: 'COLUMN_1_NAME'
+        category:
+          # pick of one of the supported categories:
+          # additional options
+      - name: 'COLUMN_2_NAME'
         category:
           # pick of one of the supported categories:
           # additional options
 ```
 
-Example of a CARS table with 4 columns:
+## Generator options
+
+Each category may have it's own options to produce data. Place the options in the desired \*category" object (Such as ID, Address, Person...)
+
+### Address
+
+Available types:
+
+- city
+- state
+- country
+- streetName
+- streetAddress
+- countryCode
+- zipCode
+
+Options:
+
+```yml
+category:
+  address:
+    type: state
+    abbr: true | false # Abbreviates the state
+```
+
+### Date
+
+Available types:
+
+- weekday
+- future
+- between
+- past
+- month
+
+Options:
+
+```yml
+category:
+  date:
+    type: weekday
+    abbr: true | false # Abbreviates the weekday
+    # ---------------------------------------------------------
+    type: month
+    abbr: true | false # Abbreviates the month
+    # ---------------------------------------------------------
+    type: past
+    dateLocale: 'en-gb, pt-br, en-us...' # Outputs date in the desired format. The locale should be a Javascript compatible locale string.
+    # ---------------------------------------------------------
+    type: between
+    start: 'YYYY-MM-DD' #the starting date in 'YYYY-MM-DD' format
+    end: 'YYYY-MM-DD'   #the limit date in 'YYYY-MM-DD' format
+    dateLocale: 'en-gb, pt-br, en-us...'
+    # ---------------------------------------------------------
+    type: future
+    dateLocale: 'en-gb, pt-br, en-us...'
+```
+
+### Enum
+
+You can bring your own data in the _values_ array to be randomly selected.
+
+```yml
+category:
+  enum:
+    values:
+      - an array
+      - containing
+      - data
+      - to be randomly
+      - selected
+```
+
+### Git
+
+Available types:
+
+- branch
+- commitEntry
+- commitMessage
+- commitSha
+- shortSha
+
+```yml
+category:
+  git:
+    type: one of the available types
+```
+
+### ID
+
+Available types:
+
+- uuid
+- sequentialInteger
+- randomInteger
+
+Options:
+
+```yml
+category:
+  ID:
+    type: sequentialInteger
+    start: 20 # The starting number of the generated data. Increments 1 at each iteration.
+    # ---------------------------------------------------------
+    type: randomInteger
+    min: 100 # The minimum number to be randomized
+    max: 100 # The maximum number to be randomized
+```
+
+### Person
+
+Available types:
+
+- firstName
+- lastName
+- middleName
+- jobTitle
+- prefix
+- suffix
+- title
+- jobDescriptor
+- jobArea
+- jobType
+
+Options:
+
+```yml
+category:
+  person:
+    type: firstName
+    gender: M | F # Determines the gender to be generated
+    # ---------------------------------------------------------
+    type: middleName
+    gender: M | F
+    # ---------------------------------------------------------
+    type: lastName
+    gender: M | F
+```
+
+### Random
+
+Available types:
+
+- string
+- integer
+- boolean
+- float
+- hexaDecimal
+- word
+- words
+- image
+
+Options:
+
+```yml
+category:
+  person:
+    type: string
+    length: 40 # Determines the string's length to be generated
+    # ---------------------------------------------------------
+    type: float
+    precision: 3 # The number's precision after separator.
+    min: 100 # The minimum number to be randomized
+    max: 100 # The maximum number to be randomized
+    # ---------------------------------------------------------
+    type: integer
+    precision: 3 # The number's precision after separator.
+    min: 100 # The minimum number to be randomized
+    max: 100 # The maximum number to be randomized
+
+```
+
+### Random
+
+Available types:
+
+- vehicle
+- color
+- manufacturer
+- model
+- type
+- vin
+- fuel
+
+Options:
+
+```yml
+category:
+  vehicle:
+    type: one of the available types
+```
+
+## Schema Example
+
+Example of a two tables schema with two columns outputting 25 and 30 records respectively.
 
 ```yaml
 tables:
@@ -124,6 +347,13 @@ tables:
           ID:
             type: sequentialInteger
             start: 100
+      - name: 'PRICE'
+        category:
+          random:
+            type: float
+            min: 10000
+            max: 20000
+            precision: 4
       - name: 'MODEL'
         category:
           vehicle:
@@ -135,33 +365,46 @@ tables:
       - name: 'ACQUISITION_DATE'
         category:
           date:
-            type: month
-```
-
-## Usage
-
-You can display information about Zap CLI through the **"h"** flag:
-
-```bash
-zap -h
-```
-
-Given your schema file is named **schema.yml**
-
-```bash
-zap -f schema.yml
-```
-
-If you want to specify a locale, use the **"l"** flag
-
-```bash
-zap -f schema.yml -l 'pt_BR'
-```
-
-If you want to generate a CSV output, use the **"c"** flag
-
-```bash
-zap -c -f schema.yml
+            type: between
+            start: '2010-03-01'
+            end: '2020-05-01'
+            dateLocale: 'en-gb'
+  - name: 'USER'
+    quantity: 30
+    fields:
+      - name: 'USER_ID'
+        category:
+          ID:
+            type: uuid
+      - name: 'PASSWORD'
+        category:
+          random:
+            type: string
+            length: 100
+      - name: 'USER_TYPE'
+        category:
+          enum:
+            values:
+              - admin
+              - regular
+              - temporary
+      - name: 'FIRST_NAME'
+        category:
+          person:
+            type: firstName
+            gender: F
+      - name: 'LAST_NAME'
+        category:
+          person:
+            type: lastName
+      - name: 'ADDRESS'
+        category:
+          address:
+            type: streetAddress
+      - name: 'BIRTHDAY'
+        category:
+          date:
+            type: past
 ```
 
 ## Contributing

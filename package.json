@@ -42,7 +42,7 @@
   },
   "homepage": "https://github.com/malvfr/zap#readme",
   "devDependencies": {
-    "@types/faker": "^5.1.5",
+    "@types/faker": "^5.5.0",
     "@types/jest": "^26.0.19",
     "@types/js-yaml": "^4.0.0",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
@@ -60,7 +60,7 @@
   },
   "dependencies": {
     "commander": "^7.2.0",
-    "faker": "^5.1.0",
+    "faker": "^5.5.2",
     "js-yaml": "^4.0.0"
   }
 }

@@ -2,18 +2,18 @@ import { loadFakerModule } from '../../shared/module_loader';
 import { ZapSchemaRandom } from '../schema/random.schema';
 
 export default async ({ type, length, max, min, precision }: ZapSchemaRandom, locale: string): Promise<string> => {
-  const { random } = await loadFakerModule(locale);
+  const { random, datatype } = await loadFakerModule(locale);
   switch (type) {
     case 'float':
-      return random.float({ min, max }).toPrecision(precision).toString();
+      return datatype.float({ min, max }).toPrecision(precision).toString();
     case 'integer':
-      return random.number({ min, max }).toString();
+      return datatype.number({ min, max }).toString();
     case 'hexaDecimal':
-      return random.hexaDecimal().toString();
+      return datatype.hexaDecimal().toString();
     case 'image':
       return random.image();
     case 'boolean':
-      return random.boolean().toString();
+      return datatype.boolean().toString();
     case 'word':
       return random.word();
     case 'words':

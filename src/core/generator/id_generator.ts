@@ -3,13 +3,13 @@ import { ZapSchemaID } from '../schema/id.schema';
 import { ZapSchemaMetadata } from '../schema/zap.schema';
 
 export default async ({ type, start, max, min }: ZapSchemaID, locale: string, meta: ZapSchemaMetadata): Promise<string> => {
-  const { random } = await loadFakerModule(locale);
+  const { datatype } = await loadFakerModule(locale);
 
   switch (type) {
     case 'uuid':
-      return random.uuid();
+      return datatype.uuid();
     case 'randomInteger':
-      return random.number({ min, max }).toString();
+      return datatype.number({ min, max }).toString();
     case 'sequentialInteger':
       start = start ?? 1;
 

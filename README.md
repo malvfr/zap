@@ -1,3 +1,4 @@
+[![npm version](https://badge.fury.io/js/%40malvfr%2Fzap.svg)](https://badge.fury.io/js/%40malvfr%2Fzap)
 ![npm](https://img.shields.io/npm/dt/@malvfr/zap?style=plastic)
 [![codecov](https://codecov.io/gh/malvfr/zap/branch/master/graph/badge.svg?token=9YKLT5WKFU)](https://codecov.io/gh/malvfr/zap)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=malvfr_zap&metric=alert_status)](https://sonarcloud.io/dashboard?id=malvfr_zap)

@@ -1,7 +1,7 @@
 {
   "name": "@malvfr/zap",
   "version": "1.0.3",
-  "description": "Database data generation tool",
+  "description": "Database data seeding tool, outputting realistic SQL and CSV data",
   "bin": {
     "zap": "build/cli/cli.js"
   },

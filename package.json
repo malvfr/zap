@@ -42,7 +42,7 @@
   },
   "homepage": "https://github.com/malvfr/zap#readme",
   "devDependencies": {
-    "@types/faker": "^5.5.0",
+    "@types/faker": "^5.5.1",
     "@types/jest": "^26.0.19",
     "@types/js-yaml": "^4.0.0",
     "@typescript-eslint/eslint-plugin": "^4.21.0",

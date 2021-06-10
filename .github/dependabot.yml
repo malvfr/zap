@@ -1,16 +1,9 @@
 version: 2
 updates:
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: daily
-    time: "08:00"
-  open-pull-requests-limit: 10
-  target-branch: dev
-  ignore:
-  - dependency-name: "@types/faker"
-    versions:
-    - 5.5.0
-  - dependency-name: faker
-    versions:
-    - 5.5.2
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: monthly
+      time: "08:00"
+    open-pull-requests-limit: 10
+    target-branch: dev

@@ -1,4 +1,4 @@
-import randomGen from '../../../../src/core/generator/random_generator';
+import randomGen from '../../../../src/core/generator/random.generator';
 
 describe('Test random data generation', () => {
   test('Should return a string', async () => {
@@ -21,7 +21,7 @@ describe('Test random data generation', () => {
     returnedValue = await randomGen({ type: 'string' }, 'en_US');
     expect(typeof returnedValue).toBe('string');
 
-    returnedValue = await randomGen({ type: 'string', length: '10' }, 'en_US');
+    returnedValue = await randomGen({ type: 'string', length: 10 }, 'en_US');
     expect(typeof returnedValue).toBe('string');
     expect(returnedValue.length).toBe(10);
 

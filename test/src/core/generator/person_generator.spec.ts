@@ -1,4 +1,4 @@
-import personGen from '../../../../src/core/generator/person_generator';
+import personGen from '../../../../src/core/generator/person.generator';
 
 describe('Test person data generation', () => {
   test('Should return a string', async () => {

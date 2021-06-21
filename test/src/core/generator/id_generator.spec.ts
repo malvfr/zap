@@ -1,4 +1,4 @@
-import idGen from '../../../../src/core/generator/id_generator';
+import idGen from '../../../../src/core/generator/id.generator';
 
 describe('Test ID data generation', () => {
   test('Should return a string', async () => {

@@ -1,4 +1,4 @@
-import addGen from '../../../../src/core/generator/address_generator';
+import addGen from '../../../../src/core/generator/address.generator';
 
 describe('Test address data generation', () => {
   test('Should return a string', async () => {

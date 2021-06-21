@@ -1,4 +1,4 @@
-import dateGen from '../../../../src/core/generator/date_generator';
+import dateGen from '../../../../src/core/generator/date.generator';
 
 describe('Test DATE data generation', () => {
   test('Should return a string', async () => {

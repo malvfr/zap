@@ -1,13 +1,10 @@
-type ZapSchemaPersonType =
-  | 'firstName'
-  | 'lastName'
-  | 'middleName'
-  | 'jobTitle'
-  | 'prefix'
-  | 'suffix'
-  | 'title'
-  | 'jobDescriptor'
-  | 'jobArea'
-  | 'jobType';
+import Joi from 'joi';
+import buildSchema from './build';
 
-export type ZapSchemaPerson = { type: ZapSchemaPersonType; gender?: 'M' | 'F' };
+export const PersonSchema = buildSchema(
+  'Person',
+  ['firstName', 'lastName', 'middleName', 'jobTitle', 'prefix', 'suffix', 'title', 'jobDescriptor', 'jobArea', 'jobType'],
+  {
+    gender: Joi.string().valid('M', 'F').default('M')
+  }
+);

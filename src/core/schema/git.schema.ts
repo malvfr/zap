@@ -1,2 +1,3 @@
-type ZapSchemaGitType = 'branch' | 'commitEntry' | 'commitMessage' | 'commitSha' | 'shortSha';
-export type ZapSchemaGit = { type: ZapSchemaGitType };
+import buildSchema from './build';
+
+export const GitSchema = buildSchema('Git', ['branch', 'commitEntry', 'commitMessage', 'commitSha', 'shortSha']);

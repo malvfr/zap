@@ -1,4 +1,4 @@
-import gitGen from '../../../../src/core/generator/git_generator';
+import gitGen from '../../../../src/core/generator/git.generator';
 
 describe('Test git data generation', () => {
   test('Should return a string', async () => {

@@ -1,8 +1,11 @@
 import { load } from 'js-yaml';
+import { Zap } from './interfaces/zap';
 import { ZapSchema } from './schema/zap.schema';
 
-export const parseFile = (fileAsString: string): ZapSchema => {
+export const parseFile = (fileAsString: string): Zap => {
   const data = load(fileAsString);
 
-  return data as ZapSchema;
+  console.log(ZapSchema.validate(data));
+
+  return data as Zap;
 };

@@ -1,4 +1,4 @@
-import enumGen from '../../../../src/core/generator/enum_generator';
+import enumGen from '../../../../src/core/generator/enum.generator';
 
 describe('Test Enum data generation', () => {
   test('Should return a string available in the array', async () => {

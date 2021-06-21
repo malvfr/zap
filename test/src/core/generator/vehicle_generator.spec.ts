@@ -1,4 +1,4 @@
-import vehicleGen from '../../../../src/core/generator/vehicle_generator';
+import vehicleGen from '../../../../src/core/generator/vehicle.generator';
 
 describe('Test vehicle data generation', () => {
   test('Should return a string', async () => {

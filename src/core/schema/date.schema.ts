@@ -1,8 +1,9 @@
-type ZapSchemaDateType = 'weekday' | 'future' | 'between' | 'past' | 'month';
-export type ZapSchemaDate = {
-  type: ZapSchemaDateType;
-  start?: string;
-  end?: string;
-  dateLocale?: string;
-  abbr?: boolean;
-};
+import Joi from 'joi';
+import buildSchema from './build';
+
+export const DateSchema = buildSchema('Date', ['weekday', 'future', 'between', 'past', 'month'], {
+  start: Joi.string(),
+  end: Joi.string(),
+  dateLocale: Joi.string(),
+  abbr: Joi.boolean()
+});
